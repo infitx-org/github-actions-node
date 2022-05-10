@@ -1,0 +1,14 @@
+name: Run License Tests Job
+
+on:
+  workflow_call: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Read .nvmrc
+        run: |
+          echo "To Be Done"
+
