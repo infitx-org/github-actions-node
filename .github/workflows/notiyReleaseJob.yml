@@ -47,6 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Post to a Slack channel
+      if: always()
       id: slack
       uses: slackapi/slack-github-action@v1.19.0
       with:
