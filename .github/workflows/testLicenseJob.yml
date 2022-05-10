@@ -7,8 +7,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Read .nvmrc
+      - name: Placeholder
         run: |
           echo "To Be Done"
 
