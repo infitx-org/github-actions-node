@@ -10,7 +10,7 @@ on:
         default: ${{ github.repository }}
       CONDITION:
         description: 'Github step condition'
-        type: string
+        type: boolean
         required: false
         default: ${{ always() }}
       TYPE:
