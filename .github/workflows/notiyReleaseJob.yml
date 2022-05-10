@@ -8,11 +8,11 @@ on:
         type: string
         required: false
         default: ${{ github.repository }}
-      CONDITION:
-        description: 'Github step condition'
-        type: boolean
-        required: false
-        default: ${{ always() }}
+      # CONDITION:
+      #   description: 'Github step condition'
+      #   type: boolean
+      #   required: false
+      #   default: ${{ always() }}
       TYPE:
         description: 'Type of release Notification, e.g. Tag, Github, NPM, Docker, etc'
         type: string
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Post to a Slack channel
-      if: ${{ inputs.CONDITION }}
+      if: ${{ always() }}
       id: slack
       uses: slackapi/slack-github-action@v1.19.0
       with:
