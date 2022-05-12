@@ -21,12 +21,6 @@
 
 name: Publish image
 
-# on:
-#   # The build will run on all of the following event types, however an image will _only_ be
-#   # published for a release.
-#   release:
-#     types: [published]
-
 on:
   workflow_call:
     inputs:
