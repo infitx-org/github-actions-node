@@ -52,10 +52,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: if JOB_STATUS=true then status='success'
-      if: ${{ inputs.JOB_STATUS == true }}
+      if: ${{ inputs.JOB_STATUS === true }}
       run: echo 'JOB_STATUS=success' >> $GITHUB_ENV
     - name: if JOB_STATUS=false then status='failure'
-      if: ${{ inputs.JOB_STATUS == true }}
+      if: ${{ inputs.JOB_STATUS === false }}
       run: echo 'JOB_STATUS=failure' >> $GITHUB_ENV
     - name: Post to a Slack channel
       id: slack
