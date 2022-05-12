@@ -51,18 +51,42 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
-    - name: if IS_SUCCESS=true then status='success'
-      if: ${{ inputs.IS_SUCCESS == true }}
-      run: echo 'JOB_STATUS=success' >> $GITHUB_ENV
-    - name: if IS_SUCCESS=false then status='failure'
-      if: ${{ inputs.IS_SUCCESS == false }}
-      run: echo 'JOB_STATUS=failure' >> $GITHUB_ENV
-    - name: if inputs.RELEASE_VERSION is defined then set version
-      if: ${{ inputs.RELEASE_VERSION }}
-      run: echo 'RELEASE_VERSION=${{ inputs.RELEASE_VERSION }}' >> $GITHUB_ENV
-    - name: if inputs.RELEASE_VERSION is NOT defined then set is 'n/a'
-      if: ${{ !inputs.RELEASE_VERSION }}
-      run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV      
+    - name: Set JOB_STATUS
+      # if: ${{ inputs.IS_SUCCESS == true }}
+      env:
+        IS_SUCCESS: ${{ inputs.IS_SUCCESS }}
+      run: 
+        if [ "$IS_SUCCESS" == "true" ]
+        then
+              echo 'JOB_STATUS=success' >> $GITHUB_ENV
+        else
+              echo 'JOB_STATUS=failure' >> $GITHUB_ENV
+        fi
+    # - name: if IS_SUCCESS=false then status='failure'
+    #   if: ${{ inputs.IS_SUCCESS == false }}
+    #   run: echo 'JOB_STATUS=failure' >> $GITHUB_ENV
+    # - name: if inputs.RELEASE_VERSION is defined then set version
+    #   if: ${{ inputs.RELEASE_VERSION }}
+    #   run: echo 'RELEASE_VERSION=${{ inputs.RELEASE_VERSION }}' >> $GITHUB_ENV
+    # - name: Set RELEASE_VERSION
+    #   # if: ${{ inputs.IS_SUCCESS == true }}
+    #   env:
+    #     VERSION: ${{ inputs.VERSION }}
+    #   run: 
+    #     if [ "$VERSION" ]
+    #     then
+    #           echo 'JOB_STATUS=success' >> $GITHUB_ENV
+    #     else
+    #           echo 'JOB_STATUS=failure' >> $GITHUB_ENV
+    #     fi
+    # - name: if inputs.RELEASE_VERSION is NOT defined then set is 'n/a'
+    #   if: ${{ !inputs.RELEASE_VERSION }}
+    #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
+    # - name: echo github.action_status
+    #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
+
+      
+
     - name: Post to a Slack channel
       id: slack
       uses: slackapi/slack-github-action@v1.19.0
