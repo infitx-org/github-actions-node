@@ -30,11 +30,11 @@ on:
         type: string
         required: false
         default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      JOB_STATUS:
+      IS_SUCCESS:
         description: 'The job status used for sending notifications. Possible values are "success", "failure", or "cancelled".'
-        type: string
+        type: boolean
         required: false
-        default: ${{ job.status }}
+        default: true
       CUSTOM_MSG:
         description: 'Optional custom message'
         type: string
@@ -51,11 +51,11 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
-    - name: if JOB_STATUS=true then status='success'
-      if: ${{ inputs.JOB_STATUS === true }}
+    - name: if IS_SUCCESS=true then status='success'
+      if: ${{ inputs.IS_SUCCESS === true }}
       run: echo 'JOB_STATUS=success' >> $GITHUB_ENV
-    - name: if JOB_STATUS=false then status='failure'
-      if: ${{ inputs.JOB_STATUS === false }}
+    - name: if IS_SUCCESS=false then status='failure'
+      if: ${{ inputs.IS_SUCCESS === false }}
       run: echo 'JOB_STATUS=failure' >> $GITHUB_ENV
     - name: Post to a Slack channel
       id: slack
