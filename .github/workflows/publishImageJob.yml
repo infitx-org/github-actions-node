@@ -71,7 +71,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ${{ inputs.REPOSITORY }}/${{ github.repository }}
           labels: |
             org.opencontainers.image.vendor=${{ inputs.VENDOR }}
             org.opencontainers.image.licenses=${{ inputs.LICENSE }}
