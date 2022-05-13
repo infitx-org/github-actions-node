@@ -30,11 +30,11 @@ on:
         type: string
         required: false
         default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      # JOB_STATUS:
-      #   description: 'The current status of the job. Possible values are success, failure, or cancelled.'
-      #   type: string
-      #   required: false
-      #   default: ${{ github.action_status }}
+      JOB_STATUS:
+        description: 'The current status of the job. Possible values are success, failure, or cancelled.'
+        type: string
+        required: false
+        default: ${{ github.action_status }}
       IS_SUCCESS:
         description: Boolean to indicate success condition. If true, the status='success', else status='failed'
         type: boolean
@@ -108,8 +108,8 @@ jobs:
     #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
     - name: echo JOB_STATUS
       run: echo 'JOB_STATUS=${{ inputs.JOB_STATUS }}'
-    - name: echo github.action_status
-      run: echo 'github.action_status=${{ github.action_status }}'
+    # - name: echo github.action_status
+    #   run: echo 'github.action_status=${{ github.action_status }}'
 
     - name: Post to a Slack channel
       id: slack
