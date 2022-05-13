@@ -62,7 +62,8 @@ jobs:
     #     else
     #           echo 'JOB_STATUS=failure' >> $GITHUB_ENV
     #     fi
-
+    # - run: |
+    #       if [[ ${{ steps.generate_number.outputs.random_number }} == 0 ]]; then exit
     # - name: if IS_SUCCESS=false then status='failure'
     #   if: ${{ inputs.IS_SUCCESS == false }}
     #   run: echo 'JOB_STATUS=failure' >> $GITHUB_ENV
@@ -85,6 +86,8 @@ jobs:
     #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
     # - name: echo github.action_status
     #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
+    - name: echo github.action_status
+      run: echo 'JOB_STATUS=${{ inputs.JOB_STATUS }}'
 
       
 
