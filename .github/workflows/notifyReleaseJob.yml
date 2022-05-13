@@ -15,6 +15,15 @@ on:
         description: 'Release URL, e.g. https://github.com/{{org}}/{{repository}}/releases/tag/{{version}}'
         type: string
         required: true
+      JOB_STATUS:
+        description: 'The current status of the job. Possible values are success, failed, skipped, or cancelled.'
+        type: string
+        required: true
+      JOB_URL:
+        description: 'URL for Job'
+        type: string
+        required: false
+        default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       PROJECT:
         description: 'Name of project'
         type: string
@@ -25,21 +34,6 @@ on:
         type: string
         required: false
         default: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}
-      JOB_URL:
-        description: 'URL for Job'
-        type: string
-        required: false
-        default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      JOB_STATUS:
-        description: 'The current status of the job. Possible values are success, failure, or cancelled.'
-        type: string
-        required: false
-        default: ${{ github.action_status }}
-      # IS_SUCCESS:
-      #   description: Boolean to indicate success condition. If true, the status='success', else status='failed'
-      #   type: boolean
-      #   required: false
-      #   default: true
       CUSTOM_MSG:
         description: 'Optional custom message'
         type: string
@@ -56,61 +50,12 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
-    # - name: Set JOB_STATUS
-    #   # if: ${{ inputs.IS_SUCCESS == true }}
-    #   env:
-    #     IS_SUCCESS: ${{ inputs.IS_SUCCESS }}
-    #   run:
-    #     if [ "$IS_SUCCESS" == "true" ];
-    #     then
-    #           echo 'JOB_STATUS=success' >> $GITHUB_ENV
-    #     else
-    #           echo 'JOB_STATUS=failure' >> $GITHUB_ENV
-    #     fi
-    # - run: |
-    #       if [[ ${{ steps.generate_number.outputs.random_number }} == 0 ]]; then exit
-
     - name: if JOB_STATUS == 'success'
       if: ${{ inputs.JOB_STATUS == 'success' }}
       run: echo 'COLOR=#5abc54' >> $GITHUB_ENV
     - name: if JOB_STATUS != 'success'
       if: ${{ inputs.JOB_STATUS != 'success' }}
       run: echo 'COLOR=#FF3333' >> $GITHUB_ENV
-
-    # - name: if IS_SUCCESS=true
-    #   if: ${{ inputs.IS_SUCCESS == true }}
-    #   run: |
-    #     echo 'JOB_STATUS=success' >> $GITHUB_ENV
-    #     echo 'COLOR=#5abc54' >> $GITHUB_ENV
-    # - name: if IS_SUCCESS=false
-    #   if: ${{ inputs.IS_SUCCESS == false }}
-    #   run: |
-    #     echo 'JOB_STATUS=failed' >> $GITHUB_ENV
-    #     echo 'COLOR=#FF3333' >> $GITHUB_ENV
-    # - name: if inputs.RELEASE_VERSION is defined then set version
-    #   if: ${{ inputs.RELEASE_VERSION }}
-    #   run: echo 'RELEASE_VERSION=${{ inputs.RELEASE_VERSION }}' >> $GITHUB_ENV
-    # - name: Set RELEASE_VERSION
-    #   # if: ${{ inputs.IS_SUCCESS == true }}
-    #   env:
-    #     VERSION: ${{ inputs.VERSION }}
-    #   run: 
-    #     if [ "$VERSION" ]
-    #     then
-    #           echo 'JOB_STATUS=success' >> $GITHUB_ENV
-    #     else
-    #           echo 'JOB_STATUS=failure' >> $GITHUB_ENV
-    #     fi
-    # - name: if inputs.RELEASE_VERSION is NOT defined then set is 'n/a'
-    #   if: ${{ !inputs.RELEASE_VERSION }}
-    #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
-    # - name: echo github.action_status
-    #   run: echo 'RELEASE_VERSION="n/a"' >> $GITHUB_ENV
-    # - name: echo JOB_STATUS
-    #   run: echo 'JOB_STATUS=${{ inputs.JOB_STATUS }}'
-    # - name: echo github.action_status
-    #   run: echo 'github.action_status=${{ github.action_status }}'
-
     - name: Post to a Slack channel
       id: slack
       uses: slackapi/slack-github-action@v1.19.0
