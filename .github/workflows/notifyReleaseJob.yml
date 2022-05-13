@@ -71,10 +71,10 @@ jobs:
     #       if [[ ${{ steps.generate_number.outputs.random_number }} == 0 ]]; then exit
 
     - name: if JOB_STATUS='success'
-      if: ${{ inputs.JOB_STATUS == "success" }}
+      if: ${{ inputs.JOB_STATUS == 'success' }}
       run: echo 'COLOR=#5abc54' >> $GITHUB_ENV
     - name: if JOB_STATUS!='success'
-      if: ${{ inputs.JOB_STATUS != "success" }}
+      if: ${{ inputs.JOB_STATUS != 'success' }}
       run: echo 'COLOR=#FF3333' >> $GITHUB_ENV
 
     # - name: if IS_SUCCESS=true
