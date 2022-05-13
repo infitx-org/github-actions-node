@@ -30,11 +30,11 @@ on:
         type: string
         required: false
         default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      IS_SUCCESS:
-        description: 'Boolean value to indicate the status of the previous job.'
-        type: boolean
+      JOB_STATUS:
+        description: 'The current status of the job. Possible values are success, failure, or cancelled.'
+        type: string
         required: false
-        default: true
+        default: ${{ github.action_status }}
       CUSTOM_MSG:
         description: 'Optional custom message'
         type: string
@@ -51,17 +51,17 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
-    - name: Set JOB_STATUS
-      # if: ${{ inputs.IS_SUCCESS == true }}
-      env:
-        IS_SUCCESS: ${{ inputs.IS_SUCCESS }}
-      run:
-        if [ "$IS_SUCCESS" == "true" ];
-        then
-              echo 'JOB_STATUS=success' >> $GITHUB_ENV
-        else
-              echo 'JOB_STATUS=failure' >> $GITHUB_ENV
-        fi
+    # - name: Set JOB_STATUS
+    #   # if: ${{ inputs.IS_SUCCESS == true }}
+    #   env:
+    #     IS_SUCCESS: ${{ inputs.IS_SUCCESS }}
+    #   run:
+    #     if [ "$IS_SUCCESS" == "true" ];
+    #     then
+    #           echo 'JOB_STATUS=success' >> $GITHUB_ENV
+    #     else
+    #           echo 'JOB_STATUS=failure' >> $GITHUB_ENV
+    #     fi
 
     # - name: if IS_SUCCESS=false then status='failure'
     #   if: ${{ inputs.IS_SUCCESS == false }}
@@ -119,7 +119,7 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": "Type: `${{ inputs.TYPE }}`\nTag: `${{ env.RELEASE_VERSION }}`"
+                            "text": "Type: `${{ inputs.TYPE }}`\nTag: `${{ inputs.RELEASE_VERSION }}`"
                         }
                     },
                     {
@@ -133,7 +133,7 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": "Status: `${{ env.JOB_STATUS }}` @ ${{ inputs.CHANGE_URL }}"
+                            "text": "Status: `${{ inputs.JOB_STATUS }}` @ ${{ inputs.CHANGE_URL }}"
                         },
                         "accessory": {
                             "type": "button",
