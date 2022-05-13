@@ -30,11 +30,11 @@ on:
         type: string
         required: false
         default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      JOB_STATUS:
-        description: 'The current status of the job. Possible values are success, failure, or cancelled.'
-        type: string
-        required: false
-        default: ${{ github.action_status }}
+      # JOB_STATUS:
+      #   description: 'The current status of the job. Possible values are success, failure, or cancelled.'
+      #   type: string
+      #   required: false
+      #   default: ${{ github.action_status }}
       IS_SUCCESS:
         description: Boolean to indicate success condition. If true, the status='success', else status='failed'
         type: boolean
