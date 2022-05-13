@@ -16,4 +16,5 @@ jobs:
         with:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
       - run: npm ci
+      - run: npm run backend:start
       - run: npm run test:int
