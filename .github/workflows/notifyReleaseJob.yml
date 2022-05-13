@@ -94,7 +94,7 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": ":shipit: ${{ inputs.RELEASE_URL }}"
+                            "text": "${{ inputs.RELEASE_URL }}"
                         }
                     },
                     {
