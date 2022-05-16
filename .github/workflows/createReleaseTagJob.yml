@@ -40,6 +40,7 @@ jobs:
           sudo apt install -y jq
       - uses: actions/checkout@v3
         with:
+          fetch-depth: 0 # fetch complete history
           ssh-key: ${{ secrets.GIT_KEY }}
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
