@@ -60,7 +60,7 @@ on:
         required: true
 
 jobs:
-  build-and-push-image:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
