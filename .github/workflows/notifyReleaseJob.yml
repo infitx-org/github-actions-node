@@ -38,6 +38,14 @@ on:
         description: 'Optional custom message'
         type: string
         required: false
+      RELEASE_CHANGE_ARTEFACT:
+        description: 'Uploaded Artefact containing the Changelog diff between releases'
+        type: string
+        required: true
+      RELEASE_CHANGE_FILENAME:
+        description: 'Name of file referenced from Uploaded Artefact containing the Changelog diff between releases'
+        type: string
+        required: true
     secrets:
       SLACK_BOT_TOKEN:
         description: 'Slack Bot Token'
@@ -50,6 +58,21 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.RELEASE_CHANGE_ARTEFACT }}
+        path: /tmp/
+    - name: Release info
+      run: |
+        echo "RELEASE_CHANGE_ARTEFACT/RELEASE_CHANGE_FILENAME contents:"
+        cat /tmp/${{ inputs.RELEASE_CHANGE_FILENAME }}
+        echo "------------------------------"
+        echo "RELEASE_TAG=${{ inputs.RELEASE_VERSION }}"
+    - name: Fetch changelog
+      run: |
+        echo 'RELEASE_CHANGES<<EOF' >> $GITHUB_ENV
+        cat /tmp/${{ inputs.RELEASE_CHANGE_FILENAME }} >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
     - name: if JOB_STATUS == 'success'
       if: ${{ inputs.JOB_STATUS == 'success' }}
       run: echo 'COLOR=#5abc54' >> $GITHUB_ENV
@@ -122,9 +145,16 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
+                            "text": "${{ env.RELEASE_CHANGES }} "
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
                             "text": "${{ inputs.CUSTOM_MSG }} "
                         }
-                    }
+                    },
                 ]
               }
             ]
