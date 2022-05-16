@@ -78,9 +78,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTEFACT_NAME }}
-          path: |
-            /tmp/${{ env.ARTEFACT_FILE }}
-            CHANGELOG.md
+          path: /tmp/${{ env.ARTEFACT_FILE }}
           if-no-files-found: error
       - name: Push the release @ v${{ env.RELEASE_TAG }}
         run: |
