@@ -63,4 +63,4 @@ jobs:
         run: |
           git push --follow-tags
       - id: output-version
-        run: echo "::set-output name=version::'${{ env.RELEASE_TAG }}'"
+        run: echo "::set-output name=version::${{ env.RELEASE_TAG }}"
