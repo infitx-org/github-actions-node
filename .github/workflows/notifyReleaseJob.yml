@@ -100,59 +100,59 @@ jobs:
               {
                 "color": "${{ env.COLOR }}",
                 "blocks": [
-                    {
-                        "type": "header",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "${{ inputs.PROJECT }}",
-                            "emoji": true
-                        }
-                    },
-                    {
-                        "type": "divider"
-                    },
-                    {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "Type: `${{ inputs.TYPE }}`\nTag: `${{ inputs.RELEASE_VERSION }}`"
-                        }
-                    },
-                    {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "${{ inputs.RELEASE_URL }}"
-                        }
-                    },
-                    {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "Status: `${{ inputs.JOB_STATUS }}` @ ${{ inputs.CHANGE_URL }}"
-                        },
-                        "accessory": {
-                            "type": "button",
-                            "text": {
-                                "type": "plain_text",
-                                "text": "View",
-                                "emoji": true
-                            },
-                            "value": "visit_job_btn",
-                            "url": "${{ inputs.JOB_URL }}",
-                            "action_id": "button-action"
-                        }
-                    },
-                    {
-                        "type": "divider"
-                    },
-                    {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "${{ inputs.CUSTOM_MSG }} "
-                        }
-                    },
+                  {
+                      "type": "header",
+                      "text": {
+                          "type": "plain_text",
+                          "text": "${{ inputs.PROJECT }}",
+                          "emoji": true
+                      }
+                  },
+                  {
+                      "type": "divider"
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "Type: `${{ inputs.TYPE }}`\nTag: `${{ inputs.RELEASE_VERSION }}`"
+                      }
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "${{ inputs.RELEASE_URL }}"
+                      }
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "Status: `${{ inputs.JOB_STATUS }}` @ ${{ inputs.CHANGE_URL }}"
+                      },
+                      "accessory": {
+                          "type": "button",
+                          "text": {
+                              "type": "plain_text",
+                              "text": "View",
+                              "emoji": true
+                          },
+                          "value": "visit_job_btn",
+                          "url": "${{ inputs.JOB_URL }}",
+                          "action_id": "button-action"
+                      }
+                  },
+                  {
+                      "type": "divider"
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "${{ inputs.CUSTOM_MSG }} "
+                      }
+                  }
                 ]
               }
             ]
