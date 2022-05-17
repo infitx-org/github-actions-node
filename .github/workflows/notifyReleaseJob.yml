@@ -59,21 +59,25 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v3
-      with:
-        name: ${{ inputs.RELEASE_CHANGE_ARTEFACT }}
-        path: /tmp/
+    ## TODO: Consider including the release changes in the notification?
+    # - uses: actions/download-artifact@v3
+    #   with:
+    #     name: ${{ inputs.RELEASE_CHANGE_ARTEFACT }}
+    #     path: /tmp/
+    # - name: Release info
+    #   run: |
+    #     echo "RELEASE_CHANGE_ARTEFACT/RELEASE_CHANGE_FILENAME contents:"
+    #     cat /tmp/${{ inputs.RELEASE_CHANGE_FILENAME }}
+    #     echo "------------------------------"
+    #     echo "RELEASE_TAG=${{ inputs.RELEASE_VERSION }}"
+    # - name: Fetch changelog
+    #   run: |
+    #     echo 'RELEASE_CHANGES<<EOF' >> $GITHUB_ENV
+    #     cat /tmp/${{ inputs.RELEASE_CHANGE_FILENAME }} >> $GITHUB_ENV
+    #     echo 'EOF' >> $GITHUB_ENV
     - name: Release info
       run: |
-        echo "RELEASE_CHANGE_ARTEFACT/RELEASE_CHANGE_FILENAME contents:"
-        cat /tmp/${{ inputs.RELEASE_CHANGE_FILENAME }}
-        echo "------------------------------"
-        echo "RELEASE_TAG=${{ inputs.RELEASE_VERSION }}"
-    - name: Fetch changelog
-      run: |
-        echo 'RELEASE_CHANGES<<EOF' >> $GITHUB_ENV
-        cat /tmp/${{ inputs.RELEASE_CHANGE_FILENAME }} >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
+        echo "RELEASE_VERSION=${{ inputs.RELEASE_VERSION }}"
     - name: if JOB_STATUS == 'success'
       if: ${{ inputs.JOB_STATUS == 'success' }}
       run: echo 'COLOR=#5abc54' >> $GITHUB_ENV
