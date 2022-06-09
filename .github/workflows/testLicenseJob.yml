@@ -7,6 +7,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Placeholder
+      - name: Install License Check
         run: |
-          echo "To Be Done"
+          git clone https://github.com/mojaloop/license-scanner /tmp/license-scanner
+          cd /tmp/license-scanner && make build default-files set-up
+      - name: Run License Check
+        run: |
+          cd /tmp/license-scanner && pathToRepo=${{ github.workspace }} make run
+      - uses: actions/upload-artifact@v3
+        with:
+          name: license-report
+          path: /tmp/license-scanner/results
+          if-no-files-found: error
