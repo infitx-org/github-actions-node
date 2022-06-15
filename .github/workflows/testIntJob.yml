@@ -18,3 +18,4 @@ jobs:
       - run: npm ci
       - run: npm run backend:start
       - run: npm run test:int
+      - run: npm run backend:stop
