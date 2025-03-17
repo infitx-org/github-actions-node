@@ -76,7 +76,7 @@ jobs:
           echo "------------------------------"
           echo "RELEASE_CHANGES=$RELEASE_CHANGES"
           echo "RELEASE_TAG=$RELEASE_TAG"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTEFACT_NAME }}
           path: /tmp/${{ env.ARTEFACT_FILE }}

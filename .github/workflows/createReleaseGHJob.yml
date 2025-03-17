@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.RELEASE_VERSION }}
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.RELEASE_CHANGE_ARTEFACT }}
           path: /tmp/

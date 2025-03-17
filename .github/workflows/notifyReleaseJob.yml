@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     ## TODO: Consider including the release changes in the notification?
-    # - uses: actions/download-artifact@v3
+    # - uses: actions/download-artifact@v4
     #   with:
     #     name: ${{ inputs.RELEASE_CHANGE_ARTEFACT }}
     #     path: /tmp/
